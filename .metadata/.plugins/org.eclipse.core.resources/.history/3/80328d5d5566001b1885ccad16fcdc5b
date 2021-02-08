@@ -1,0 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Sekoliko</title>
+    <!-- Bootstrap core CSS -->
+	<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg  navbar-dark  bg-primary  shadow container-fluid">
+
+            <a class="navbar-brand lnav" href="#" data-scroll="acceuill">SEKOLIKO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link lnav" href="eleve" data-scroll="acceuill"><i class="fas fa-home "></i> MPIANATRA <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link lnav" href="enseignant" data-scroll="produit"><i class="fab fa-product-hunt"></i> MPAMPIANATRA</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link lnav" href="classe" data-scroll="inscription"><i class ="fa fa-edit"></i> KILASY</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link lnav" href="matiere" data-scroll="contact"><i class ="fa fa-envelope"></i> TARANJA</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+    	<textarea name="" id="" cols="110" rows="5" placeholder="Ampidiro eto ny rekety SQL"></textarea>
+		
+    	<table class="table mt-4 " id="table_charge">
+    	<h3 class="text-primary mt-4">Lisitry ny kilasy </h3>	
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Kilasy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                      
+                            <tr>
+                                <td colspan="3">Aucun enregistrement trouvé</td>
+                            </tr>
+                   
+                    </tbody>
+                </table>
+    </div>
+    
+</body>
+</html>

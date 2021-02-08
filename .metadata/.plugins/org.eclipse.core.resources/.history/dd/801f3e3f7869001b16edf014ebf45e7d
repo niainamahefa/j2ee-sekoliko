@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>Ecole</display-name>
+  
+  <welcome-file-list>
+  	<welcome-file>accueil.jsp</welcome-file>
+  </welcome-file-list>
+   <servlet>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<servlet-class>com.ecole.servlet.LoginServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>EleveServlet</servlet-name>
+  	<servlet-class>com.ecole.servlet.EleveServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>EleveServlet</servlet-name>
+  	<url-pattern>/eleve</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>EleveServlet</servlet-name>
+  	<url-pattern>/nouveau_eleve</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>EleveServlet</servlet-name>
+  	<url-pattern>/editer_eleve</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+  	<servlet-name>EleveServlet</servlet-name>
+  	<url-pattern>/inserer_eleve</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>EleveServlet</servlet-name>
+  	<url-pattern>/supprimer_eleve</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+  	<servlet-name>ProfesseurServlet</servlet-name>
+  	<servlet-class>com.ecole.servlet.ProfesseurServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ProfesseurServlet</servlet-name>
+  	<url-pattern>/professeur</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ProfesseurServlet</servlet-name>
+  	<url-pattern>/nouveau_prof</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ProfesseurServlet</servlet-name>
+  	<url-pattern>/editer_prof</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ProfesseurServlet</servlet-name>
+  	<url-pattern>/inserer_prof</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ProfesseurServlet</servlet-name>
+  	<url-pattern>/modifier_prof</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+  	<servlet-name>ProfesseurServlet</servlet-name>
+  	<url-pattern>/supprimer_prof</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+  	<servlet-name>ClasseServlet</servlet-name>
+  	<servlet-class>com.ecole.servlet.ClasseServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ClasseServlet</servlet-name>
+  	<url-pattern>/classe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ClasseServlet</servlet-name>
+  	<url-pattern>/nouveau_classe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ClasseServlet</servlet-name>
+  	<url-pattern>/editer_classe</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+  	<servlet-name>ClasseServlet</servlet-name>
+  	<url-pattern>/modifier_classe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ClasseServlet</servlet-name>
+  	<url-pattern>/inserer_classe</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ClasseServlet</servlet-name>
+  	<url-pattern>/supprimer_classe</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  <servlet>
+  	<servlet-name>MatiereServlet</servlet-name>
+  	<servlet-class>com.ecole.servlet.MatiereServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>MatiereServlet</servlet-name>
+  	<url-pattern>/matiere</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet-mapping>
+  	<servlet-name>MatiereServlet</servlet-name>
+  	<url-pattern>/nouveau_matiere</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet-mapping>
+  	<servlet-name>MatiereServlet</servlet-name>
+  	<url-pattern>/editer_matiere</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>MatiereServlet</servlet-name>
+  	<url-pattern>/inserer_matiere</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>MatiereServlet</servlet-name>
+  	<url-pattern>/modifier_matiere</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+  	<servlet-name>MatiereServlet</servlet-name>
+  	<url-pattern>/supprimer_matiere</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

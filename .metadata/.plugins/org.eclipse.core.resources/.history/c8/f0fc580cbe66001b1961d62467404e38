@@ -1,0 +1,9 @@
+package com.ecole.model;
+
+public class Professeur {
+	
+	private int prof_id;
+	private String prof_nom;
+	private String prof_prenom;
+	
+}

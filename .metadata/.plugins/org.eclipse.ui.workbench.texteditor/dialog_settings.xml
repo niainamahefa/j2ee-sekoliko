@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="int elv_id"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="int id"/>
+			<item value="mat_prenom"/>
+			<item value="mat_nom"/>
+			<item value="mat_id"/>
+			<item value="cls_nom"/>
+			<item value="professeur"/>
+			<item value="classe"/>
+			<item value="&quot;classe&quot;"/>
+			<item value="eleve"/>
+			<item value="add"/>
+			<item value="id"/>
+			<item value="prof_prenom"/>
+			<item value="elv_id"/>
+			<item value="elv_cls_k"/>
+			<item value="matiere"/>
+		</list>
+		<list key="replacehistory">
+			<item value="int elv_id"/>
+			<item value="elv_prenom"/>
+			<item value="elv_nom"/>
+			<item value="elv_id"/>
+			<item value="professeur"/>
+			<item value="int prof_id"/>
+			<item value="q"/>
+			<item value="int cls_id"/>
+			<item value="prof_id"/>
+			<item value="prof_nom"/>
+			<item value="eleve"/>
+			<item value="listProfesseur"/>
+			<item value="prof_prenom"/>
+			<item value="Professeur"/>
+			<item value="professeurDao"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="971"/>
+		<item key="DIALOG_Y_ORIGIN" value="128"/>
+		<item key="DIALOG_WIDTH" value="284"/>
+		<item key="DIALOG_HEIGHT" value="332"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

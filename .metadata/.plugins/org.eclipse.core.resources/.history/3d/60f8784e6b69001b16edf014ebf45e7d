@@ -1,0 +1,180 @@
+package com.ecole.servlet;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.ecole.dao.MatiereDao;
+import com.ecole.model.Matiere;
+
+/**
+ * Servlet implementation class MatiereServlet
+ */
+@WebServlet("/MatiereServlet")
+public class MatiereServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	private MatiereDao matiereDao; 
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MatiereServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+    
+    public void init()  throws ServletException {
+    	matiereDao = new MatiereDao();
+    }
+    
+    /**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+    
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String action = request.getServletPath();
+		
+		switch (action) {
+		case "/nouveau_matiere":
+			showAddForm(request, response);
+			break;
+
+		case "/inserer_matiere":
+			try {
+				insertMatiere(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
+		case "/editer_matiere":
+			showEditForm(request, response);
+			break;
+
+		case "/supprimer_matiere":
+			try {
+				deleteMatiere(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+
+		case "/modifier_matiere":
+			updateMatiere(request, response);
+			break;
+			
+			default:
+				listMatiere(request, response);
+				break;
+			
+		}
+		
+	}
+	
+	private void showAddForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException
+	{
+		 request.getRequestDispatcher("/WEB-INF/matiere-form.jsp").forward(request, response);
+	}
+	
+	// INSERT MATIERE
+	private void insertMatiere(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException 
+	{
+		String mat_nom = request.getParameter("mat_nom");
+		Matiere matiere = new Matiere(mat_nom);
+		matiereDao.insertMatiere(matiere);
+		response.sendRedirect("matiere");
+		
+	}
+	
+	// DELETE MATIERE
+	private void deleteMatiere(HttpServletRequest request, HttpServletResponse response) 
+			throws SQLException, IOException 
+	{
+		int mat_id = Integer.parseInt(request.getParameter("mat_id"));
+		
+		try {
+			matiereDao.deleteMatiere(mat_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("matiere");
+	}
+	
+	// EDIT MATIERE
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, ServletException, IOException 
+	{
+		
+		int mat_id = Integer.parseInt(request.getParameter("mat_id"));
+		
+		Matiere existingMatiere;
+		
+		try {
+			existingMatiere = matiereDao.selectMatiere(mat_id);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matiere-form.jsp");
+			dispatcher.forward(request, response);
+			request.setAttribute("matiere", existingMatiere);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// UPDATE 
+	private void updateMatiere(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, ServletException, IOException
+	{
+		int mat_id = Integer.parseInt(request.getParameter("mat_id"));
+		String mat_nom = request.getParameter("mat_nom");
+		
+		Matiere matiere = new Matiere(mat_nom);
+		matiereDao.updateMatiere(matiere);
+		response.sendRedirect("matiere");
+		
+	}
+	
+	//DEFAULT 
+	private void listMatiere(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, ServletException, IOException {
+		
+		try {
+			List<Matiere> listMatiere = matiereDao.selectAllMatiere();
+			request.setAttribute("listMatiere", listMatiere);
+			request.getRequestDispatcher("/WEB-INF/matiere.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+}

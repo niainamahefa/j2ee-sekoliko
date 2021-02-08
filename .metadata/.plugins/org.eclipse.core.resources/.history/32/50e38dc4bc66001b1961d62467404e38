@@ -1,0 +1,6 @@
+package com.ecole.model;
+
+public class Matiere {
+	private String mat_id;
+	private String mat_nom;
+}

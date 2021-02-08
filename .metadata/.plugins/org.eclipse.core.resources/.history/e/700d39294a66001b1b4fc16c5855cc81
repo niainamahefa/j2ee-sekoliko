@@ -1,0 +1,5 @@
+package com.ecole.servlet;
+
+public enum HttpServletRequest {
+
+}

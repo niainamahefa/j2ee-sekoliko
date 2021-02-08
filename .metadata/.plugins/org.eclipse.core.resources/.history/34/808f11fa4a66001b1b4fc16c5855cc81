@@ -1,0 +1,5 @@
+package com.ecole.model;
+
+public class User {
+
+}

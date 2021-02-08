@@ -1,0 +1,44 @@
+package com.ecole.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.ecole.model.User;
+
+public class LoginServlet extends HttpServlet{
+
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("Login Servlet - doPost méthode");
+		
+		String anarana = req.getParameter("anarana");
+		String tenimiafina = req.getParameter("tenimiafina");
+		
+		System.out.println("Anarana : " + anarana + " Tenimifina : " + tenimiafina );
+		
+		if (anarana.equals("admin") && (tenimiafina.equals("sekoliko"))) {
+			System.out.println("Tongasoa eto @ logiciel Sekoliko");
+			
+			req.getSession().setAttribute("user", new User (anarana,tenimiafina));
+			resp.sendRedirect("eleve");
+		}
+		else {
+			System.out.println("Hamarino azafady");
+			resp.sendRedirect("login");
+		}
+	}
+	
+	
+	
+
+}

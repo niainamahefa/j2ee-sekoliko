@@ -1,0 +1,160 @@
+package com.ecole.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ecole.model.CLASSE;
+
+public class ClasseDao {
+	private String url = "jdbc:postgresql://localhost:5432/Ecole";
+	private String user = "postgres";
+	private String password = "n141n4";
+	
+	private static final String INSERT_CLASSE_SQL = 
+			"INSERT INTO CLASSE" + "(mat_nom) VALUES " + " (?)";
+	private static final String SELECT_CLASSE_BY_ID = 
+			"SELECT mat_id, mat_nom FROM CLASSE WHERE mat_id=?";
+	private static final String SELECT_ALL_CLASSE = 
+			" SELECT * FROM CLASSE ";
+	private static final String DELETE_CLASSE_SQL = 
+			"DELETE FROM CLASSE WHERE mat_id = ?";
+	private static final String UPDATE_CLASSE_SQL = 
+			"UPDATE CLASSE SET mat_nom = ?";
+	
+	public CLASSEDao() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	protected Connection getConnection() {
+		Connection connection = null;
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+		} 
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Connexion échouée");
+			// TODO: handle exception
+		}
+		return connection;
+		
+	}
+	
+	// INSERT CLASSE
+	public void insertCLASSE(CLASSE CLASSE) {
+		System.out.println(INSERT_CLASSE_SQL);
+		
+		try (Connection connection = getConnection();
+			
+			
+			PreparedStatement pstmt = connection.prepareStatement(INSERT_CLASSE_SQL)) {
+			pstmt.setString(1, CLASSE.getMat_nom());
+			
+			System.out.println(pstmt);
+			
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// SELECT CLASSE BY ID
+	public CLASSE selectCLASSE(int id) {
+		
+		CLASSE CLASSE = null;
+		
+		try (Connection connection = getConnection();
+			
+			
+			PreparedStatement pstmt = connection.prepareStatement(SELECT_CLASSE_BY_ID)) {
+			pstmt.setInt(1, id);
+			
+			System.out.println(pstmt);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String mat_nom = rs.getString("mat_nom");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return CLASSE;
+	}
+	
+	//SELECT ALL CLASSE
+	public List<CLASSE> selectAllCLASSE() {
+			
+		List<CLASSE> CLASSE = new ArrayList<>();
+			
+			try (Connection connection = getConnection(); 
+				
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_CLASSE)) {
+				
+				System.out.println(pstmt);
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					int mat_id = rs.getInt("mat_id");
+					String mat_nom = rs.getString("mat_nom");
+					CLASSE.add(new CLASSE(mat_id,mat_nom));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return CLASSE;
+	}
+	
+	// UPDATE CLASSE
+	public boolean updateCLASSE(CLASSE CLASSE) {
+		boolean rowUpdated = false;
+		
+			try (Connection connection = getConnection();
+				
+				
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_CLASSE_SQL)) {
+				
+				System.out.println("CLASSE mis à jour " + pstmt);
+				
+				pstmt.setString(1, CLASSE.getMat_nom());
+				pstmt.setInt(2, CLASSE.getMat_id());
+				
+				rowUpdated = pstmt.executeUpdate() > 0;
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return rowUpdated;
+	}
+	
+	// DELETE CLASSE
+	public boolean deleteCLASSE(int id) {
+		boolean rowDeleted = false;
+		
+			try (Connection connection = getConnection(); 
+				
+				
+				PreparedStatement pstmt = connection.prepareStatement(DELETE_CLASSE_SQL)) {
+				
+				pstmt.setInt(1, id);
+				rowDeleted = pstmt.executeUpdate() > 0;
+				System.out.println("CLASSE mis à jour " + pstmt);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return rowDeleted;
+	}
+}

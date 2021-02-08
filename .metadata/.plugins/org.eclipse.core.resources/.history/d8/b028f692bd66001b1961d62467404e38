@@ -1,0 +1,9 @@
+package com.ecole.model;
+
+public class Eleve {
+	
+	private int elv_id;
+	private String elv_nom;
+	private String elv_prenom;
+	
+}

@@ -1,0 +1,54 @@
+package com.ecole.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Connect {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Class.forName("org.postgresql.Driver");
+			System.out.println("Driver O.K");
+			
+			String url = "jdbc:postgresql://localhost:5432/Ecole";
+			String user = "postgres";
+			String password = "n141n4";
+			
+			Connection connx = DriverManager.getConnection(url, user, password);
+			
+			Statement stmt = connx.createStatement();
+			
+			String query = "SELECT prof_nom, prof_prenom, mat_nom FROM professeur INNER JOIN j_mat_prof "
+					+ " ON jmp_prof_k = prof_id INNER JOIN matiere ON jmp_mat_k = mat_id "
+					+ " INNER JOIN classe ON jcm_cls_k = cls_id INNER JOIN j_cls_jmp "
+					+ " ON jcm_jmp_k = jmp_id AND cls_id BETWEEN 1 AND 6  ORDER BY cls_id ASC, prof_nom";
+			
+			ResultSet res = stmt.executeQuery(query);
+			
+			String nom = "";
+			
+			while(res.next()) {
+				if (!nom.equals(res.getString("prof_nom"))) {
+					nom = res.getString("prof_nom");
+					System.out.println(nom + " " + res.getString("prof_prenom") + "enseigne : ");
+				}
+				System.out.println("\t\t\t - " + res.getString("mat_nom"));
+			}
+			
+			res.close();
+			stmt.close();
+			
+			System.out.println("Connexion O.K");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Connexion échouée");
+			// TODO: handle exception
+		}
+
+	}
+
+}

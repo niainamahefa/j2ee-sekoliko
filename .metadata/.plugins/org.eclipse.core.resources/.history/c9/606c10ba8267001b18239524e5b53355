@@ -1,0 +1,159 @@
+package com.ecole.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ecole.model.Eleve;
+
+public class EleveDao {
+	private String url = "jdbc:postgresql://localhost:5432/Ecole";
+	private String user = "postgres";
+	private String password = "n141n4";
+	
+	private static final String INSERT_ELEVE_SQL = 
+			"INSERT INTO eleve" + "(mat_nom) VALUES " + " (?)";
+	private static final String SELECT_ELEVE_BY_ID = 
+			"SELECT elv_id, mat_nom FROM eleve WHERE elv_id=?";
+	private static final String SELECT_ALL_ELEVE = 
+			" SELECT * FROM eleve ";
+	private static final String DELETE_ELEVE_SQL = 
+			"DELETE FROM eleve WHERE elv_id = ?";
+	private static final String UPDATE_ELEVE_SQL = 
+			"UPDATE eleve SET mat_nom = ?";
+	
+	public EleveDao() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	protected Connection getConnection() {
+		Connection connection = null;
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+		} 
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Connexion échouée");
+			// TODO: handle exception
+		}
+		return connection;
+		
+	}
+	
+	// INSERT ELEVE
+	public void insertEleve(Eleve eleve) {
+		System.out.println(INSERT_ELEVE_SQL);
+		
+		try (Connection connection = getConnection();
+			
+			
+			PreparedStatement pstmt = connection.prepareStatement(INSERT_ELEVE_SQL)) {
+			pstmt.setString(1, eleve.getMat_nom());
+			
+			System.out.println(pstmt);
+			
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// SELECT ELEVE BY ID
+	public Eleve selectEleve(int id) {
+		
+		Eleve eleve = null;
+		
+		try (Connection connection = getConnection();
+			
+			
+			PreparedStatement pstmt = connection.prepareStatement(SELECT_ELEVE_BY_ID)) {
+			pstmt.setInt(1, id);
+			
+			System.out.println(pstmt);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String mat_nom = rs.getString("mat_nom");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return eleve;
+	}
+	
+	//SELECT ALL ELEVE
+	public List<Eleve> selectAllEleve() {
+			
+		List<Eleve> eleve = new ArrayList<>();
+			
+			try (Connection connection = getConnection(); 
+				
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_ELEVE)) {
+				
+				System.out.println(pstmt);
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					int elv_id = rs.getInt("elv_id");
+					String mat_nom = rs.getString("mat_nom");
+					eleve.add(new Eleve(elv_id,mat_nom));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return eleve;
+	}
+	
+	// UPDATE ELEVE
+	public boolean updateEleve(Eleve eleve) {
+		boolean rowUpdated = false;
+		
+			try (Connection connection = getConnection();
+				
+				
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_ELEVE_SQL)) {
+				
+				System.out.println("Eleve mis à jour " + pstmt);
+				
+				pstmt.setString(1, eleve.getMat_nom());
+				pstmt.setInt(2, eleve.getMat_id());
+				
+				rowUpdated = pstmt.executeUpdate() > 0;
+				
+			} catch (SQLException e) {
+			}
+			return rowUpdated;
+	}
+	
+	// DELETE ELEVE
+	public boolean deleteEleve(int id) {
+		boolean rowDeleted = false;
+		
+			try (Connection connection = getConnection(); 
+				
+				
+				PreparedStatement pstmt = connection.prepareStatement(DELETE_ELEVE_SQL)) {
+				
+				pstmt.setInt(1, id);
+				rowDeleted = pstmt.executeUpdate() > 0;
+				System.out.println("Eleve mis à jour " + pstmt);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return rowDeleted;
+	}
+}

@@ -1,0 +1,166 @@
+package com.ecole.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ecole.model.Professeur;
+
+public class ProfesseurDao {
+	private String url = "jdbc:postgresql://localhost:5432/Ecole";
+	private String user = "postgres";
+	private String password = "n141n4";
+	
+	private static final String INSERT_PROFESSEUR_SQL = 
+			"INSERT INTO professeur" + "(elv_nom, elv_prenom, elv_cls_k) VALUES " + " (?, ?, ?)";
+	private static final String SELECT_PROFESSEUR_BY_ID = 
+			"SELECT elv_id, elv_nom, elv_prenom, elv_cls_k FROM professeur WHERE elv_id=?";
+	private static final String SELECT_ALL_PROFESSEUR = 
+			" SELECT * FROM professeur ";
+	private static final String DELETE_PROFESSEUR_SQL = 
+			"DELETE FROM professeur WHERE elv_id = ?";
+	private static final String UPDATE_PROFESSEUR_SQL = 
+			"UPDATE professeur SET elv_nom = ?, elv_prenom = ?, elv_cls_k = ?";
+	
+	public ProfesseurDao() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	protected Connection getConnection() {
+		Connection connection = null;
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+		} 
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Connexion échouée");
+			// TODO: handle exception
+		}
+		return connection;
+		
+	}
+	
+	// INSERT PROFESSEUR
+	public void insertProfesseur(Professeur professeur) {
+		System.out.println(INSERT_PROFESSEUR_SQL);
+		
+		try (Connection connection = getConnection();
+			
+			
+			PreparedStatement pstmt = connection.prepareStatement(INSERT_PROFESSEUR_SQL)) {
+			pstmt.setString(1, professeur.getProf_nom());
+			pstmt.setString(2, professeur.getProf_prenom());
+			
+			System.out.println(pstmt);
+			
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// SELECT PROFESSEUR BY ID
+	public Professeur selectProfesseur(int id) {
+		
+		Professeur professeur = null;
+		
+		try (Connection connection = getConnection();
+			
+			
+			PreparedStatement pstmt = connection.prepareStatement(SELECT_PROFESSEUR_BY_ID)) {
+			pstmt.setInt(1, id);
+			
+			System.out.println(pstmt);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String elv_nom = rs.getString("elv_nom");
+				String elv_prenom = rs.getString("elv_prenom");
+				int elv_cls_k = rs.getInt("id");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return professeur;
+	}
+	
+	//SELECT ALL PROFESSEUR
+	public List<Professeur> selectAllProfesseur() {
+			
+		List<Professeur> professeur = new ArrayList<>();
+			
+			try (Connection connection = getConnection(); 
+				
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_PROFESSEUR)) {
+				
+				System.out.println(pstmt);
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					int elv_id = rs.getInt("elv_id");
+					String elv_nom = rs.getString("elv_nom");
+					String elv_prenom = rs.getString("elv_prenom");
+					String elv_cls_k = rs.getString("elv_cls_k");
+					professeur.add(new Professeur(elv_id,elv_nom, elv_prenom, elv_cls_k));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return professeur;
+	}
+	
+	// UPDATE PROFESSEUR
+	public boolean updateProfesseur(Professeur professeur) {
+		boolean rowUpdated = false;
+		
+			try (Connection connection = getConnection();
+				
+				
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_PROFESSEUR_SQL)) {
+				
+				System.out.println("Professeur mis à jour " + pstmt);
+				
+				pstmt.setString(1, professeur.getProf_nom());
+				pstmt.setString(2, professeur.getProf_prenom());
+				pstmt.setString(3, professeur.getElv_cls_k());
+				pstmt.setInt(4, professeur.getElv_id());
+				
+				rowUpdated = pstmt.executeUpdate() > 0;
+				
+			} catch (SQLException e) {
+			}
+			return rowUpdated;
+	}
+	
+	// DELETE PROFESSEUR
+	public boolean deleteProfesseur(int id) {
+		boolean rowDeleted = false;
+		
+			try (Connection connection = getConnection(); 
+				
+				
+				PreparedStatement pstmt = connection.prepareStatement(DELETE_PROFESSEUR_SQL)) {
+				
+				pstmt.setInt(1, id);
+				rowDeleted = pstmt.executeUpdate() > 0;
+				System.out.println("Professeur mis à jour " + pstmt);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return rowDeleted;
+	}
+}

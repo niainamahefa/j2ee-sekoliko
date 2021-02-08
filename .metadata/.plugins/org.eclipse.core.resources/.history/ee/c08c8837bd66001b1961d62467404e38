@@ -1,0 +1,7 @@
+package com.ecole.model;
+
+public class Classe {
+	
+	private int cls_id;
+	private String cls_nom;
+}

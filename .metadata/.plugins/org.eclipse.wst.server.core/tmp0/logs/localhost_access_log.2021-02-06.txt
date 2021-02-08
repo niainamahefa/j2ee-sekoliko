@@ -1,0 +1,17 @@
+127.0.0.1 - - [06/Feb/2021:19:23:36 +0100] "GET / HTTP/1.1" 404 992
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:23:39 +0100] "GET /Ecole/WEB-INF/classes/com/ecole/dao/EleveDao.java HTTP/1.1" 404 965
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:23:48 +0100] "GET /Ecole/login HTTP/1.1" 200 1703
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:23:49 +0100] "GET /Ecole/signin.css HTTP/1.1" 404 1012
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:23:49 +0100] "GET /Ecole/assets/css/signin.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:23:49 +0100] "GET /Ecole/assets/css/bootstrap.min.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:24:09 +0100] "GET /Ecole/login HTTP/1.1" 200 1703
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:24:09 +0100] "GET /Ecole/assets/css/bootstrap.min.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:24:11 +0100] "GET /Ecole/login HTTP/1.1" 200 1703
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:24:11 +0100] "GET /Ecole/assets/css/bootstrap.min.css HTTP/1.1" 304 -
+127.0.0.1 - - [06/Feb/2021:19:29:12 +0100] "GET / HTTP/1.1" 404 992
+127.0.0.1 - - [06/Feb/2021:19:30:46 +0100] "GET / HTTP/1.1" 404 992
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:31:13 +0100] "GET /Ecole/login HTTP/1.1" 200 1703
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:31:13 +0100] "GET /Ecole/signin.css HTTP/1.1" 404 1012
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:32:12 +0100] "POST /Ecole/login HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:32:15 +0100] "GET /Ecole/eleve HTTP/1.1" 200 2591
+0:0:0:0:0:0:0:1 - - [06/Feb/2021:19:32:15 +0100] "GET /Ecole/assets/fontawesome-free/css/all.min.css HTTP/1.1" 304 -

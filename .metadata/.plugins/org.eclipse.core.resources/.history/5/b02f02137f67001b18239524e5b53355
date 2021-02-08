@@ -1,0 +1,5 @@
+package com.ecole.dao;
+
+public class EleveDao {
+
+}

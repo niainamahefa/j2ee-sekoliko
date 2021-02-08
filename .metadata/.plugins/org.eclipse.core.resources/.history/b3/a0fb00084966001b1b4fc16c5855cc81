@@ -1,0 +1,45 @@
+package com.ecole.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.blackphntomdev.tempconverter.model.User;
+
+public class LoginServlet extends HttpServlet{
+
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("Login Servlet - doGet méthode");
+		req.getRequestDispatcher("/WEB-INF/Login.jsp").forward(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("Login Servlet - doPost méthode");
+		
+		String email = req.getParameter("mail");
+		String password = req.getParameter("passwd");
+		
+		System.out.println("Email : " + email + " Mot de passe : " + password );
+		
+		if (email.equals("niainaandria5@gmail.com") && (password.equals("blk00"))) {
+			System.out.println("Bonne authentification");
+			
+			req.getSession().setAttribute("user", new User (email,password));
+			resp.sendRedirect("course");
+		}
+		else {
+			System.out.println("Mauvaise authentification");
+			resp.sendRedirect("login");
+		}
+	}
+	
+	
+	
+
+}

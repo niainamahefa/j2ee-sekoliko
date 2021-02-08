@@ -1,0 +1,162 @@
+package com.ecole.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ecole.model.Matiere;
+
+public class MatiereDao {
+	
+	private String url = "jdbc:postgresql://localhost:5432/Ecole";
+	private String user = "postgres";
+	private String password = "n141n4";
+	
+	private static final String INSERT_MATIERE_SQL = 
+			"INSERT INTO matiere" + "(mat_nom) VALUES " + " (?)";
+	private static final String SELECT_MATIERE_BY_ID = 
+			"SELECT mat_id, mat_nom FROM matiere WHERE mat_id=?";
+	private static final String SELECT_ALL_MATIERE = 
+			" SELECT * FROM matiere ";
+	private static final String DELETE_MATIERE_SQL = 
+			"DELETE FROM matiere WHERE mat_id = ?";
+	private static final String UPDATE_MATIERE_SQL = 
+			"UPDATE matiere SET mat_nom = ?";
+	
+	public MatiereDao() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	protected Connection getConnection() {
+		Connection connection = null;
+		
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(url, user, password);
+		} 
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Connexion échouée");
+			// TODO: handle exception
+		}
+		return connection;
+		
+	}
+	
+	// INSERT MATIERE
+	public void insertMatiere(Matiere matiere) {
+		System.out.println(INSERT_MATIERE_SQL);
+		
+		try (Connection connection = getConnection();
+			
+			
+			PreparedStatement pstmt = connection.prepareStatement(INSERT_MATIERE_SQL)) {
+			pstmt.setString(1, matiere.getMat_nom());
+			
+			System.out.println(pstmt);
+			
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// SELECT MATIERE BY ID
+	public Matiere selectMatiere(int id) {
+		
+		Matiere matiere = null;
+		
+		try (Connection connection = getConnection();
+			
+			
+			PreparedStatement pstmt = connection.prepareStatement(SELECT_MATIERE_BY_ID)) {
+			pstmt.setInt(1, id);
+			
+			System.out.println(pstmt);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String mat_nom = rs.getString("mat_nom");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return matiere;
+	}
+	
+	//SELECT ALL MATIERE
+	public List<Matiere> selectAllMatiere() {
+			
+		List<Matiere> matiere = new ArrayList<>();
+			
+			try (Connection connection = getConnection(); 
+				
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_MATIERE)) {
+				
+				System.out.println(pstmt);
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					int mat_id = rs.getInt("mat_id");
+					String mat_nom = rs.getString("mat_nom");
+					matiere.add(new Matiere(mat_id,mat_nom));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return matiere;
+	}
+	
+	// UPDATE MATIERE
+	public boolean updateMatiere(Matiere matiere) throws SQLException {
+		boolean rowUpdated = false;
+		
+			try (Connection connection = getConnection();
+				
+				
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_MATIERE_SQL)) {
+				
+				System.out.println("Matiere mis à jour " + pstmt);
+				
+				pstmt.setInt(1, matiere.getMat_id());
+				pstmt.setString(2, matiere.getMat_nom());
+				
+				
+				rowUpdated = pstmt.executeUpdate() > 0;
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return rowUpdated;
+	}
+	
+	// DELETE MATIERE
+	public boolean deleteMatiere(int id) {
+		boolean rowDeleted = false;
+		
+			try (Connection connection = getConnection(); 
+				
+				
+				PreparedStatement pstmt = connection.prepareStatement(DELETE_MATIERE_SQL)) {
+				
+				pstmt.setInt(1, id);
+				rowDeleted = pstmt.executeUpdate() > 0;
+				System.out.println("Matiere mis à jour " + pstmt);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return rowDeleted;
+	}
+}

@@ -1,0 +1,28 @@
+package com.ecole.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class Connect {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Class.forName("org.postgresql.Driver");
+			System.out.println("Driver O.K");
+			
+			String url = "jdbc:postgresql://localhost:5432/Ecole";
+			String user = "postgres";
+			String password = "n141n4";
+			
+			Connection connx = DriverManager.getConnection(url, user, password);
+			System.out.println("Connexion O.K");
+			
+		} catch (Exception e) {
+			System.out.println("Connexion échouée");
+			// TODO: handle exception
+		}
+
+	}
+
+}
